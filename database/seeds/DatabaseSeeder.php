@@ -1,5 +1,6 @@
 <?php
 
+use App\Block;
 use App\Document;
 use App\Organisation;
 use App\User;
@@ -25,9 +26,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         factory(Organisation::class)->times(20)->create();
-        factory(Document::class)->times(4)->create([
+        $documents = factory(Document::class)->times(4)->create([
             'creator_user_id' => $user,
         ]);
-        factory(Document::class)->times(15)->create();
+        $allDocuments= $documents->merge(factory(Document::class)->times(15)->create());
+
+        $allDocuments->each(function (Document $document) {
+            factory(Block::class)->create([
+                'document_id' => $document,
+            ]);
+        });
     }
 }
