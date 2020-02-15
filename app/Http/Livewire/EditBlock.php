@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Block;
 use App\Document;
+use App\Events\BlockWasAdded;
+use App\Events\BlockWasUpdated;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -28,6 +30,8 @@ class EditBlock extends Component
                 'content' => $this->content,
                 'version' => $this->version = Str::uuid()->toString(),
             ]);
+
+            broadcast(new BlockWasUpdated($this->block))->toOthers();
         } else {
             $this->version = $this->block->version;
             $this->content = $this->block->content;
@@ -61,7 +65,7 @@ class EditBlock extends Component
             'version' => Str::uuid()->toString(),
         ]);
 
-        $this->emit('blocks.created');
+        broadcast(new BlockWasAdded($this->block))->toOthers();
     }
 
     public function render()
