@@ -13,6 +13,10 @@ class Block extends Model
         'version',
     ];
 
+    protected $casts = [
+        'position' => 'integer',
+    ];
+
     public function document(): BelongsTo
     {
         return $this->belongsTo(Document::class);

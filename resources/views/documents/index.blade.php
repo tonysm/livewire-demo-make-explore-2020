@@ -35,7 +35,9 @@
                         <tbody>
                             @forelse($documents as $document)
                                 <tr>
-                                    <td>{{ $document->name }}</td>
+                                    <td>
+                                        <a href="{{ route('documents.edit', $document) }}">{{ $document->name }}</a>
+                                    </td>
                                     <td>{{ $document->creator->name }} <span class="text-muted">({{ $document->created_at->diffForHumans() }})</span></td>
                                 </tr>
                             @empty

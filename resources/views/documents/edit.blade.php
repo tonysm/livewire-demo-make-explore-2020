@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                Documents@edit
+                @livewire('edit-document', $document)
             </div>
         </div>
     </div>

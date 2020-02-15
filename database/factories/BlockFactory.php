@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 $factory->define(Block::class, function (Faker $faker) {
     return [
         'content' => $faker->text,
-        'position' => $faker->randomNumber(),
+        'position' => 0,
         'version' => Str::uuid()->toString(),
         'document_id' => factory(Document::class),
     ];
