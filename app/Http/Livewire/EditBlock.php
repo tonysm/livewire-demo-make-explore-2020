@@ -9,11 +9,29 @@ use Livewire\Component;
 
 class EditBlock extends Component
 {
+    /** @var Block */
     public $block;
+    public $version;
+    public $content;
 
     public function mount(Block $block)
     {
         $this->block = $block;
+        $this->version = $block->version;
+        $this->content = $block->content;
+    }
+
+    public function updatedContent()
+    {
+        if ($this->block->version === $this->version) {
+            $this->block->update([
+                'content' => $this->content,
+                'version' => $this->version = Str::uuid()->toString(),
+            ]);
+        } else {
+            $this->version = $this->block->version;
+            $this->content = $this->block->content;
+        }
     }
 
     public function addBlockBefore()

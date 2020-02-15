@@ -10,6 +10,7 @@ class EditDocument extends Component
 {
     public $document;
     public $blocks;
+    public $name;
 
     protected $listeners = [
         'blocks.created' => 'reloadBlocks',
@@ -18,7 +19,17 @@ class EditDocument extends Component
     public function mount(Document $document)
     {
         $this->document = $document;
+        $this->name = $document->name;
         $this->blocks = $document->blocks;
+    }
+
+    public function updatedName()
+    {
+        $this->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        $this->document->update(['name' => $this->name]);
     }
 
     public function reloadBlocks()
