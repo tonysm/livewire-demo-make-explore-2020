@@ -25,4 +25,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [Controllers\HomeController::class,'index'])->name('home');
     Route::resource('organisations', Controllers\OrganisationController::class)
         ->only(['index', 'create']);
+    Route::resource('documents', Controllers\DocumentController::class)
+        ->only(['index', 'store', 'edit']);
 });
