@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->middleware('guest');
 
-Auth::routes();
+Route::namespace('App\Http\Controllers')->group(function () {
+    Auth::routes();
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', [Controllers\HomeController::class,'index'])->name('home');
