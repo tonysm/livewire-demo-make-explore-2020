@@ -5,7 +5,7 @@
         </div>
     @endif
     <div>
-        <textarea wire:model.lazy="content" class="form-control border-0"></textarea>
+        <textarea wire:model.delay.300ms="content" class="form-control border-0"></textarea>
     </div>
     <div>
         <a href="#" wire:click.prevent="addBlockAfter">Add new block here</a>

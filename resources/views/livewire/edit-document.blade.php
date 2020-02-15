@@ -3,7 +3,7 @@
         type="text"
         class="form-control {{ $errors->first('name', 'is-invalid') }} border-0"
         style="font-size: 2em;"
-        wire:model.lazy="name"
+        wire:model.delay.300ms="name"
     />
     <hr>
     @foreach($blocks as $block)
