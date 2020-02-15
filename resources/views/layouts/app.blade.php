@@ -33,7 +33,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        @auth
+                            <li class="nav-item {{ \Illuminate\Support\Str::startsWith(request()->path(), 'organisations') ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('organisations.index') }}">{{ __('Organisations') }}</a>
+                            </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
