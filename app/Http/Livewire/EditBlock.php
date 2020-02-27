@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Block;
-use App\Document;
 use App\Events\BlockWasAdded;
 use App\Events\BlockWasUpdated;
 use Illuminate\Support\Str;
@@ -11,61 +10,68 @@ use Livewire\Component;
 
 class EditBlock extends Component
 {
-    /** @var Block */
-    public $block;
+    public $blockId;
     public $version;
     public $content;
+    public $currentPosition;
 
     public function mount(Block $block)
     {
-        $this->block = $block;
+        $this->blockId = $block->id;
         $this->version = $block->version;
         $this->content = $block->content;
+        $this->currentPosition = $block->position;
+    }
+
+    private function block(): Block
+    {
+        return Block::findOrFail($this->blockId);
     }
 
     public function updatedContent()
     {
-        if ($this->block->version === $this->version) {
-            $this->block->update([
+        $block = $this->block();
+
+        if ($block->version === $this->version) {
+            $block->update([
                 'content' => $this->content,
                 'version' => $this->version = Str::uuid()->toString(),
             ]);
 
-            broadcast(new BlockWasUpdated($this->block))->toOthers();
+            broadcast(new BlockWasUpdated($block))->toOthers();
         } else {
-            $this->version = $this->block->version;
-            $this->content = $this->block->content;
+            $this->version = $block->version;
+            $this->content = $block->content;
+            $this->currentPosition = $block->position;
         }
     }
 
     public function addBlockBefore()
     {
-        $this->createBlock($this->block->position);
+        $this->createBlock($this->currentPosition);
     }
 
     public function addBlockAfter()
     {
-        $this->createBlock($this->block->position + 1);
+        $this->createBlock($this->currentPosition + 1);
     }
 
     private function createBlock(int $position)
     {
-        $this->block->document->blocks()
-            ->where('position', '>=', $position)
-            ->each(function (Block $block) {
-                $block->update([
-                    'position' => $block->position + 1,
-                    'version' => Str::uuid()->toString(),
-                ]);
-            });
+        $document = $this->block()->document;
 
-        $this->block->document->blocks()->create([
+        $document->blocks()
+            ->where('position', '>=', $position)
+            ->increment('position');
+
+        $block = $document->blocks()->create([
             'position' => $position,
-            'content' => 'New block ' . Str::random(3),
+            'content' => 'New block ' . Str::random(6),
             'version' => Str::uuid()->toString(),
         ]);
 
-        broadcast(new BlockWasAdded($this->block))->toOthers();
+        broadcast(new BlockWasAdded($block))->toOthers();
+        $this->emit('new-block', $block);
     }
 
     public function render()

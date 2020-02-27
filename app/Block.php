@@ -5,6 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property int $position
+ * @property string $version
+ * @property string $content
+ * @property \App\Document $document
+ */
 class Block extends Model
 {
     protected $fillable = [

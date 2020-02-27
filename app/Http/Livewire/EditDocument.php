@@ -2,24 +2,19 @@
 
 namespace App\Http\Livewire;
 
-use App\Block;
 use App\Document;
 use App\Events\DocumentWasRenamed;
 use Livewire\Component;
 
 class EditDocument extends Component
 {
-    public $document;
     public $documentId;
-    public $blocks;
     public $name;
 
     public function mount(Document $document)
     {
-        $this->document = $document;
         $this->documentId = $document->id;
         $this->name = $document->name;
-        $this->blocks = $document->blocks;
     }
 
     protected function getListeners()
@@ -30,8 +25,9 @@ class EditDocument extends Component
 
         return [
             $documentUpdatedEvent => 'reloadName',
-            $blockWasUpdatedEvent => 'reloadBlocks',
-            $blockWasAddedEvent => 'reloadBlocks',
+            $blockWasUpdatedEvent => '$refresh',
+            $blockWasAddedEvent => '$refresh',
+            'new-block' => '$refresh',
         ];
     }
 
@@ -41,23 +37,26 @@ class EditDocument extends Component
             'name' => ['required', 'string', 'max:255'],
         ]);
 
-        $this->document->update(['name' => $this->name]);
+        $document = $this->document();
+        $document->update(['name' => $this->name]);
 
-        broadcast(new DocumentWasRenamed($this->document))->toOthers();
+        broadcast(new DocumentWasRenamed($document))->toOthers();
+    }
+
+    private function document(): Document
+    {
+        return Document::findOrFail($this->documentId);
     }
 
     public function reloadName()
     {
-        $this->name = $this->document->name;
-    }
-
-    public function reloadBlocks()
-    {
-        $this->blocks = $this->document->blocks()->get();
+        $this->name = $this->document()->name;
     }
 
     public function render()
     {
-        return view('livewire.edit-document');
+        return view('livewire.edit-document', [
+            'blocks' => $this->document()->blocks()->get(),
+        ]);
     }
 }

@@ -6,3 +6,15 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.hover\:opacity-100:hover {
+    opacity: 1;
+}
+
+.transition {
+    transition: all 1s;
+}
