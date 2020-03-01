@@ -18,22 +18,19 @@
                     </div>
 
                     <ul class="list-unstyled list-group cursor-pointer">
-                        <li class="list-group-item border-top-0 border-left-0 border-right-0">
-                            <a href="#">#general</a>
-                        </li>
-                        <li class="list-group-item border-left-0 border-right-0">
-                            <a href="#">#general</a>
-                        </li>
-                        <li class="list-group-item border-left-0 border-right-0">
-                            <a href="#">#general</a>
-                        </li>
-                        <li class="list-grou-item border-bottom-0 border-left-0 border-right-0 p-2">
-                            <button class="btn btn-sm btn-block btn-outline-secondary">New Room</button>
-                            <div class="input-group">
+                        @foreach($rooms as $room)
+                            <li class="list-group-item border-top-0 border-left-0 border-right-0">
+                                <a href="#">#{{ $room->name }}</a>
+                            </li>
+                        @endforeach
+                        <li
+                            class="list-group-item border-bottom-0 border-left-0 border-right-0 p-2"
+                        >
+                            <div class="input-group" x-data>
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="room-addon">#</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Room name" aria-label="Room name" aria-describedby="room-addon">
+                                <input type="text" wire:model="newRoomName" @keydown.enter="@this.call('addRoom')" class="form-control" placeholder="Room name" aria-label="Room name" aria-describedby="room-addon">
                             </div>
                         </li>
                     </ul>
