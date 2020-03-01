@@ -43,6 +43,9 @@
                             <li class="nav-item {{ \Illuminate\Support\Str::startsWith(request()->path(), 'documents') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('documents.index') }}">{{ __('Documents') }}</a>
                             </li>
+                            <li class="nav-item {{ \Illuminate\Support\Str::startsWith(request()->path(), 'slackish') ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('slackish') }}">{{ __('Slackish') }}</a>
+                            </li>
                         @endauth
                     </ul>
 
