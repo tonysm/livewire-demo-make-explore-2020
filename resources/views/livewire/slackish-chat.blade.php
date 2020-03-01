@@ -20,7 +20,7 @@
                     <ul class="list-unstyled list-group cursor-pointer">
                         @foreach($rooms as $room)
                             <li class="list-group-item border-top-0 border-left-0 border-right-0">
-                                <a href="#">#{{ $room->name }}</a>
+                                <a href="#" wire:click.prevent="switchRoom({{ $room->id }})">#{{ $room->name }}</a>
                             </li>
                         @endforeach
                         <li
@@ -46,7 +46,7 @@
                 @else
                     <div class="card">
                         <div class="card-header">
-                            <h3>#general</h3>
+                            <h3>#{{ $currentRoom->name }}</h3>
                         </div>
                         <div class="card-body max-h-full overflow-y-scroll">
                             <div class="messages">
