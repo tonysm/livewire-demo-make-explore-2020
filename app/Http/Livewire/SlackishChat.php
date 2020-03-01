@@ -36,10 +36,14 @@ class SlackishChat extends Component
     public function render()
     {
         $allRooms = Room::query()->oldest()->get();
+        $currentRoom = $this->currentRoomId ? $allRooms->find($this->currentRoomId) : null;
 
         return view('livewire.slackish-chat', [
             'rooms' => $allRooms,
-            'currentRoom' => $this->currentRoomId ? $allRooms->find($this->currentRoomId) : null,
+            'currentRoom' => $currentRoom,
+            'messages' => $currentRoom
+                ? $currentRoom->chatMessages()->latest()->take(50)->with(['user:id,name'])->get()
+                : collect(),
         ]);
     }
 }

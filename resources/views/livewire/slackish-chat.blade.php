@@ -44,40 +44,27 @@
                         </div>
                     </div>
                 @else
-                    <div class="card">
+                    <div
+                        class="card"
+                        x-data="{{ json_encode(['messages' => $messages]) }}"
+                    >
                         <div class="card-header">
                             <h3>#{{ $currentRoom->name }}</h3>
                         </div>
                         <div class="card-body max-h-full overflow-y-scroll">
                             <div class="messages">
-                                <div class="media">
-                                    <img src="https://placekitten.com/40" class="mr-3" alt="...">
-                                    <div class="media-body">
-                                        <h5 class="d-inline-block">Media heading: </h5>
-                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                                    </div>
+                                <div class="px-6 py-4" x-show="messages.length === 0">
+                                    It's been quiet in here...
                                 </div>
-                                <div class="media">
-                                    <img src="https://placekitten.com/40" class="mr-3" alt="...">
-                                    <div class="media-body">
-                                        <h5 class="d-inline-block">Media heading: </h5>
-                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                <template x-for="message in messages" :key="message.id">
+                                    <div class="media">
+                                        <img src="https://placekitten.com/40" class="mr-3" alt="...">
+                                        <div class="media-body">
+                                            <h5 class="d-inline-block"><span x-text="message.user.name"></span>: </h5>
+                                            <span x-text="message.content"></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="media">
-                                    <img src="https://placekitten.com/40" class="mr-3" alt="...">
-                                    <div class="media-body">
-                                        <h5 class="d-inline-block">Media heading: </h5>
-                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                                    </div>
-                                </div>
-                                <div class="media">
-                                    <img src="https://placekitten.com/40" class="mr-3" alt="...">
-                                    <div class="media-body">
-                                        <h5 class="d-inline-block">Media heading: </h5>
-                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                                    </div>
-                                </div>
+                                </template>
                             </div>
                         </div>
                         <div class="card-footer">

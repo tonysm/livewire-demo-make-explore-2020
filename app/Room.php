@@ -14,4 +14,9 @@ class Room extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function chatMessages()
+    {
+        return $this->hasMany(ChatMessage::class);
+    }
 }
