@@ -37,49 +37,57 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>#general</h3>
+                @unless($currentRoom)
+                    <div class="bg-white rounded-lg shadow-md">
+                        <div class="px-6 py-4 text-muted">
+                            Pick a room first.
+                        </div>
                     </div>
-                    <div class="card-body max-h-full overflow-y-scroll">
-                        <div class="messages">
-                            <div class="media">
-                                <img src="https://placekitten.com/40" class="mr-3" alt="...">
-                                <div class="media-body">
-                                    <h5 class="d-inline-block">Media heading: </h5>
-                                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                @else
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>#general</h3>
+                        </div>
+                        <div class="card-body max-h-full overflow-y-scroll">
+                            <div class="messages">
+                                <div class="media">
+                                    <img src="https://placekitten.com/40" class="mr-3" alt="...">
+                                    <div class="media-body">
+                                        <h5 class="d-inline-block">Media heading: </h5>
+                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="media">
-                                <img src="https://placekitten.com/40" class="mr-3" alt="...">
-                                <div class="media-body">
-                                    <h5 class="d-inline-block">Media heading: </h5>
-                                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                <div class="media">
+                                    <img src="https://placekitten.com/40" class="mr-3" alt="...">
+                                    <div class="media-body">
+                                        <h5 class="d-inline-block">Media heading: </h5>
+                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="media">
-                                <img src="https://placekitten.com/40" class="mr-3" alt="...">
-                                <div class="media-body">
-                                    <h5 class="d-inline-block">Media heading: </h5>
-                                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                <div class="media">
+                                    <img src="https://placekitten.com/40" class="mr-3" alt="...">
+                                    <div class="media-body">
+                                        <h5 class="d-inline-block">Media heading: </h5>
+                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="media">
-                                <img src="https://placekitten.com/40" class="mr-3" alt="...">
-                                <div class="media-body">
-                                    <h5 class="d-inline-block">Media heading: </h5>
-                                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                <div class="media">
+                                    <img src="https://placekitten.com/40" class="mr-3" alt="...">
+                                    <div class="media-body">
+                                        <h5 class="d-inline-block">Media heading: </h5>
+                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="input">
-                            <label for="message-field" class="sr-only">Message</label>
-                            <input id="message-field" type="text" placeholder="Say something..." class="form-control" />
+                        <div class="card-footer">
+                            <div class="input">
+                                <label for="message-field" class="sr-only">Message</label>
+                                <input id="message-field" type="text" placeholder="Say something..." class="form-control" />
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endunless
             </div>
         </div>
     </div>

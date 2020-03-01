@@ -8,6 +8,7 @@ use Livewire\Component;
 class SlackishChat extends Component
 {
     public $newRoomName;
+    public $currentRoomId;
 
     private function rules()
     {
@@ -29,8 +30,11 @@ class SlackishChat extends Component
 
     public function render()
     {
+        $allRooms = Room::query()->oldest()->get();
+
         return view('livewire.slackish-chat', [
-            'rooms' => Room::query()->oldest()->get(),
+            'rooms' => $allRooms,
+            'currentRoom' => $this->currentRoomId ? $allRooms->find($this->currentRoomId) : null,
         ]);
     }
 }
