@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
 
         $user = factory(User::class)->create([
             'name' => 'Tony Messias',
-            'email' => 'tony@example.com',
+            'email' => 'tony@madewithlove.com',
         ]);
 
         factory(Organisation::class)->times(20)->create();
