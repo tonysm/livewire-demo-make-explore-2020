@@ -15,15 +15,17 @@ class ChatRoomsList extends Component
         $this->currentRoom = $currentRoom;
     }
 
-    public function sendMessage()
+    public function addRoom()
     {
         $this->validate([
             'newRoom' => ['required', 'string', 'min:1', 'max:100'],
         ]);
 
-        Room::create(['name' => $this->newRoom]);
+        $room = Room::create(['name' => $this->newRoom]);
 
         $this->newRoom = '';
+
+        return redirect()->route('slackish', ['room' => $room]);
     }
 
     public function render()
