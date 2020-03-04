@@ -13,27 +13,7 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <div class="card border-0">
-                    <div class="card-header border border-gray-100">
-                        <h5>Rooms</h5>
-                    </div>
-
-                    <div class="list-group">
-                        <a class="list-group-item rounded-0 list-group-item-action active" href="#">#general <span class="badge badge-light">4</span></a>
-                        <a class="list-group-item list-group-item-action" href="#">#backend</a>
-                        <div class="list-group-item">
-                            <div>
-                                <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">#</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="channel-name">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @livewire('chat-rooms-list', [null])
             </div>
             <div class="col-md-8">
                 <div class="card">
