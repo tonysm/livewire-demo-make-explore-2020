@@ -13,45 +13,55 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                @livewire('chat-rooms-list', [null])
+                @livewire('chat-rooms-list', [optional($currentRoom)->getKey()])
             </div>
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Room name...</h5>
-                    </div>
-                    <div class="card-body" style="height: 500px; overflow-y: scroll">
-                        <ul class="list-unstyled">
-                            <li class="media">
-                                <img src="https://placekitten.com/40/40" height="40px" class="mr-3" alt="...">
-                                <div class="media-body">
-                                    <strong>List-based media object</strong>: Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                                </div>
-                            </li>
-                            <li class="media">
-                                <img src="https://placekitten.com/40/40" height="40px" class="mr-3" alt="...">
-                                <div class="media-body">
-                                    <strong>List-based media object</strong>: Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <div>
-                            <label class="sr-only" for="inlineFormTextMessage"></label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <svg fill="none" height="16px" width="16px" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                                        </svg>
+                @if($currentRoom)
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>#{{ $currentRoom->name }}</h5>
+                        </div>
+                        <div class="card-body" style="height: 500px; overflow-y: scroll">
+                            <ul class="list-unstyled">
+                                @forelse($messages as $message)
+                                    <li class="media">
+                                        <img src="https://placekitten.com/40/40" height="40px" class="mr-3" alt="...">
+                                        <div class="media-body">
+                                            <strong>List-based media object</strong>: Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                        </div>
+                                    </li>
+                                @empty
+                                    <li class="media">
+                                        <div class="media-body">
+                                            It's been quiet in here...
+                                        </div>
+                                    </li>
+                                @endforelse
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <div>
+                                <label class="sr-only" for="inlineFormTextMessage"></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <svg fill="none" height="16px" width="16px" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                            </svg>
+                                        </div>
                                     </div>
+                                    <input type="text" class="form-control" id="inlineFormTextMessage" placeholder="Say something...">
                                 </div>
-                                <input type="text" class="form-control" id="inlineFormTextMessage" placeholder="Say something...">
                             </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <div class="card">
+                        <div class="card-body">
+                            Pick a room to get starter (or create one if there is none)...
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

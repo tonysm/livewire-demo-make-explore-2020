@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Room;
 
 class SlackishController extends Controller
 {
     public function index()
     {
-        return view('slackish.index');
+        $currentRoomId = request('room', null);
+        /** @var Room|null $currentRoom */
+        $currentRoom = $currentRoomId ? Room::findOrFail($currentRoomId) : null;
+
+        return view('slackish.index', [
+            'currentRoom' => $currentRoom,
+            'messages' => $currentRoom
+                ? $currentRoom->chatMessages()->latest()->take(10)->with('user')->get()
+                : collect(),
+        ]);
     }
 }

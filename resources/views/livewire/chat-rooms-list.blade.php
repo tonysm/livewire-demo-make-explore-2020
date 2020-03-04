@@ -6,7 +6,7 @@
 
         <div class="list-group">
             @foreach($rooms as $room)
-                <a class="list-group-item rounded-0 {{ $currentRoomId && $currentRoomId === $room->id ? 'list-group-item-action active' : '' }}" href="#">
+                <a class="list-group-item rounded-0 {{ $currentRoomId && $currentRoomId === $room->id ? 'list-group-item-action active' : '' }}" href="?room={{ $room->id }}">
                     #{{ $room->name }}
                 </a>
             @endforeach
