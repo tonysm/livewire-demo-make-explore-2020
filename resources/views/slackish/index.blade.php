@@ -13,46 +13,45 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                @livewire('chat-rooms-list', [optional($currentRoom)->getKey()])
+                @livewire('chat-rooms-list', ['currentRoom' => $currentRoom])
             </div>
             <div class="col-md-8">
                 @if($currentRoom)
-                    <div class="card">
+                    <div
+                        class="card"
+                        x-data="{{ json_encode(['current_room' => $currentRoom, 'messages' => $messages]) }}"
+                        x-init="
+                            Echo.private(`rooms.${current_room.id}.messages`)
+                                .listen('NewChatMessage', function (e) {
+                                    messages.push(e.chatMessage);
+                                });
+                        "
+                    >
                         <div class="card-header">
-                            <h5>#{{ $currentRoom->name }}</h5>
+                            <h5 x-text="`#${current_room.name}`"></h5>
                         </div>
                         <div class="card-body" style="height: 500px; overflow-y: scroll">
                             <ul class="list-unstyled">
-                                @forelse($messages as $message)
+                                <template x-for="message in messages" :key="message.id">
                                     <li class="media">
                                         <img src="https://placekitten.com/40/40" height="40px" class="mr-3" alt="...">
                                         <div class="media-body">
-                                            <strong>List-based media object</strong>: Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                            <strong x-text="message.user.name"></strong>: <span x-text="message.content"></span>
                                         </div>
                                     </li>
-                                @empty
+                                </template>
+
+                                <template x-if="messages.length === 0">
                                     <li class="media">
                                         <div class="media-body">
                                             It's been quiet in here...
                                         </div>
                                     </li>
-                                @endforelse
+                                </template>
                             </ul>
                         </div>
                         <div class="card-footer">
-                            <div>
-                                <label class="sr-only" for="inlineFormTextMessage"></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <svg fill="none" height="16px" width="16px" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <input type="text" class="form-control" id="inlineFormTextMessage" placeholder="Say something...">
-                                </div>
-                            </div>
+                            @livewire('chat-room-input', ['room' => $currentRoom])
                         </div>
                     </div>
                 @else

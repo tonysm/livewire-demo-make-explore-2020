@@ -7,15 +7,15 @@ use Livewire\Component;
 
 class ChatRoomsList extends Component
 {
-    public $currentRoomId;
+    public $currentRoom;
     public $newRoom;
 
-    public function mount(?Room $activeRoom = null)
+    public function mount(?Room $currentRoom = null)
     {
-        $this->currentRoomId = optional($activeRoom)->getKey();
+        $this->currentRoom = $currentRoom;
     }
 
-    public function addRoom()
+    public function sendMessage()
     {
         $this->validate([
             'newRoom' => ['required', 'string', 'min:1', 'max:100'],

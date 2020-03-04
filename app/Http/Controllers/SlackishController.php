@@ -6,16 +6,12 @@ use App\Room;
 
 class SlackishController extends Controller
 {
-    public function index()
+    public function index(?Room $room = null)
     {
-        $currentRoomId = request('room', null);
-        /** @var Room|null $currentRoom */
-        $currentRoom = $currentRoomId ? Room::findOrFail($currentRoomId) : null;
-
         return view('slackish.index', [
-            'currentRoom' => $currentRoom,
-            'messages' => $currentRoom
-                ? $currentRoom->chatMessages()->latest()->take(10)->with('user')->get()
+            'currentRoom' => $room,
+            'messages' => $room
+                ? $room->chatMessages()->latest()->take(10)->with('user:id,name')->get()->reverse()->values()
                 : collect(),
         ]);
     }

@@ -23,7 +23,7 @@ Route::namespace('App\Http\Controllers')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', [Controllers\HomeController::class,'index'])->name('home');
-    Route::get('/slackish', [Controllers\SlackishController::class, 'index'])->name('slackish');
+    Route::get('/slackish/{room?}', [Controllers\SlackishController::class, 'index'])->name('slackish');
     Route::resource('organisations', Controllers\OrganisationController::class)
         ->only(['index', 'create']);
     Route::resource('documents', Controllers\DocumentController::class)

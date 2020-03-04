@@ -20,3 +20,7 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 Broadcast::channel('documents.{document}', function () {
     return true;
 });
+
+Broadcast::channel('rooms.{room}.messages', function () {
+    return true;
+});
