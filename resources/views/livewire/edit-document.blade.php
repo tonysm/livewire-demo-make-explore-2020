@@ -7,6 +7,6 @@
     />
     <hr>
     @foreach($blocks as $block)
-        @livewire('edit-block', $block, key($block->version))
+        @livewire('edit-block', ['block' => $block], key($block->version))
     @endforeach
 </div>
